@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    h1,h2{
+        text-align: center;
+    }
+    .container{
+        padding-left:30%;
+        margin:10 10;
+    }
+    #image{
+        margin:10px 10px;
+    }
+</style>
+<body>
+    <h1>lest upgrade js batch-2 assignment day 4</h1>
+    <h2><i>by soma sahith</i></h2>
+    <hr>
+    <div class="container">
+        <h3>Q1.change images using button</h3>
+        <img id="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTd7_hNMmAt0XMJnn9AWY6Jxlh9Qg-wSDlRtA&usqp=CAU" alt="no image" width=200 width=200>
+    <br/>
+    <button class="btn" onclick="one()">image1</button>
+    <button class="btn" onclick="second()">image2</button>
+    <button class="btn" onclick="third()">image3</button>
+</div>
+<br/>
+<hr>
+<div class="container">
+    <h3>Q2.copying text from input 1 and displaying in input 2</h3>
+       INPUT 1:<input id=firstInput type="text"><br/>
+        <br/>
+        INPUT 2:<input id=secondInput type="text"><br/>
+        <br/>
+        <button class="btn2" onclick="copytext()">copy</button>
+</div>
+<br/>
+<hr>
+<div class="container">
+<h3>Q3.Array of objects</h3>
+<p>check console</p>
+</div>
+<br/>
+<hr>
+<div class="container">
+<h3>Q4.Display of objects age less than 30 and country india </h3>
+<p>check console</p>
+</div>
+<br/>
+<hr>
+<br/>
+<script>
+    //q1
+    var image=document.getElementById("image");
+    function one(){
+        console.log("hello");
+        let x="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTd7_hNMmAt0XMJnn9AWY6Jxlh9Qg-wSDlRtA&usqp=CAU"
+        image.src=x;
+    }
+    function second(){
+        console.log("hello");
+        let x="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSVWznw6d5_e9HGGZGYZxsiFOi72vSeuFcAoA&usqp=CAU";
+        image.src=x;
+    }
+    function third(){
+        console.log("hello");
+        let x="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSG-vqdVAuFJ9FYoXeWabLqSbl5bQvbOaJlMw&usqp=CAU";
+        image.src=x;
+    }
+    //q2
+    function copytext(){
+        console.log("2");
+        let firstInput=document.getElementById("firstInput");
+        let secondInput=document.getElementById("secondInput");
+        let y=firstInput.value;
+        console.log(y);
+        secondInput.value=y;
+    }
+    //q3
+    console.log("output for 3rd question");
+    var name,age,country,hobbies;
+    var obj=[
+        {
+        name:"Rohit",
+        age:33,
+        country:"India",
+        hobbies:["cricket","movies","coding"]
+       },
+       {
+           name:"Root",
+           age:29,
+           country:"England",
+           hobbies:["movies","tennis","cricket"]
+       },
+       {
+           name:"Smith",
+           age:31,
+           country:"Australia",
+           hobbies:["cricket","golf","singing"]
+       }
+    ]
+    console.log(obj);
+    obj.forEach(element => {
+        console.log(element);
+        for (t in element){
+        console.log(t+" : "+element[t]);
+    }    
+    });
+    console.log(" ");
+    //q4
+    console.log("output for 4th question");
+    function less30(){
+        obj.forEach(element => {
+            if(element.age<30){
+                console.log(element);
+            }
+        });
+    }
+    function india(){
+        obj.forEach(element => {
+            if(element.country.toLowerCase()=="india"){
+                console.log(element);
+            }
+        });
+    }
+    console.log("objects who has age less than 30");
+    less30();
+    console.log("objects whose country is india");
+    india();
+</script>
+</body>
+</html>
