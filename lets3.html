@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    h1,h2 {
+        text-align: center;
+    }
+    .container{
+        margin:20px 200px;
+        background-color: white;
+        text-align: center;
+    }
+    th,td{
+        padding: 10px 10px;
+    }
+    #search{
+        width: 20%;
+        height: 30px;
+    }
+    .q2form{
+        padding: 3px 3px;
+        margin: 3px 3px;
+        height: 25px;
+    }
+    #q2btn{
+        font-size: 15px;
+        padding: 5px 20px;
+        margin-left: 5px;
+    }
+    p{
+        font-size: 20px;
+    }
+</style>
+<body>
+    <h1>lest upgrade js batch-2 assignment day 4</h1>
+    <h2><i>by soma sahith</i></h2>
+    <hr>
+    <div class="container">
+        <h3>Question 1</h3>
+        <input type="text" placeholder="search using name and city" id="search" onkeyup="searching()" >
+        <br/><br/>
+        <table border="1" width=100% class="table">
+            <thead>
+                <tr>
+                    <th>S.NO</th>
+                    <th>NAME</th>
+                    <th>AGE</th>
+                    <th>CITY</th>
+                    <th>SALARY</th>
+                    <th>DELETE</th>
+                </tr>
+            </thead>
+            <tbody id="tablebody1">
+                <!--<tr>
+                    <td></td>
+                    <td>sahith</td>
+                    <td>20</td>
+                    <td>hyderabad</td>
+                    <td>10L</td>
+                    <td><button>delete</button></td>
+                </tr>
+            -->
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <hr>
+    <div class="container">
+        <h3>Question 2</h3>
+        <form onsubmit="addbus(event)">
+            <input  type="text"  placeholder="name" id="q2name" class="q2form" required>
+            <input type="text" required  placeholder="source" id="q2source" class="q2form">
+            <input  type="text" required placeholder="destination" id="q2destination" class="q2form">
+            <input type="number" required  placeholder="number" id="q2number" class="q2form">
+            <input type="number" required placeholder="passenger capacity" id="q2capacity" class="q2form">
+            <button type="submit" id="q2btn"> add </button>
+        </form>
+        <p>search by
+        <input type="text" placeholder="source" id="q2search1" class="q2form" onkeyup="q2search()">
+        to
+        <input type="text" placeholder="destination" id="q2search2" class="q2form" onkeyup="q2search()">
+        </p>
+        <table border="1" width=100% class="table">
+            <thead>
+                <tr>
+                    <th>S.NO</th>
+                    <th>NAME</th>
+                    <th>SOURCE</th>
+                    <th>DESTINATION</th>
+                    <th>NUMBER</th>
+                    <th>PASSENGER CAPACITY</th>
+                </tr>
+            </thead>
+            <tbody id="tablebody2">
+            </tbody>
+    </div>
+<script>
+    console.log("hello q1");
+//Q1
+var employees=[
+    {
+        name:"Yudistar",
+        age:35,
+        city:"Hyderabad",
+        salary:30000,
+    },
+    {
+        name:"Bheem",
+        age:30,
+        city:"Kolkata",
+        salary:25000,
+    },
+    {
+        name:"Arjun",
+        age:27,
+        city:"Mumbai",
+        salary:45000,
+    },
+    {
+        name:"Nakul",
+        age:25,
+        city:"Chennai",
+        salary:15000,
+    },
+    {
+        name:"Saha",
+        age:21,
+        city:"chennai",
+        salary:20000,
+    },
+]
+console.log(employees);
+function display(employeesArray){
+var tableBody1=document.getElementById("tablebody1");
+    let str="";
+    let index=1;
+employeesArray.forEach(e => {
+    str+=`<tr>
+    <td>${index}</td>
+    <td>${e.name}</td>
+    <td>${e.age}</td>
+    <td>${e.city}</td>
+    <td>${e.salary}</td>
+    <td><button onclick="deleteRecord(${index})">delete</button></td>
+</tr>`;
+index+=1;
+})
+tableBody1.innerHTML=str;
+}
+display(employees);
+function deleteRecord(index){
+    console.log(index);
+    employees.splice(index-1,1);
+    console.log(employees);
+    display(employees);
+}
+function searching(){
+    let search=document.getElementById("search").value;
+    let data=employees.filter(function(e){
+        console.log(e.name.toUpperCase());
+        console.log(search.toUpperCase());
+        return  e.name.toUpperCase().indexOf(search.toUpperCase())!=-1 || e.city.toUpperCase().indexOf(search.toUpperCase())!=-1;
+    });
+    console.log(data);
+    display(data);
+}
+
+//Q2
+//bus{name,source,destination,number,passenger capacity}
+
+var q2bus=[];
+window.onload=function() {
+    let q2bus=JSON.parse(localStorage.getItem("q2bus"));
+    q2display(q2bus);
+}
+function addbus(e){
+    e.preventDefault();
+    console.log("hello q2");
+    let bus={};
+    let q2name=document.getElementById("q2name").value;
+    let q2source=document.getElementById("q2source").value;
+    let q2destination=document.getElementById("q2destination").value;
+    let q2number=document.getElementById("q2number").value;
+    let q2capacity=document.getElementById("q2capacity").value;
+    bus.q2name=q2name;
+    bus.q2source=q2source;
+    bus.q2destination=q2destination;
+    bus.q2number=Number(q2number);
+    bus.q2capacity=Number(q2capacity);
+    q2bus.push(bus);
+    if(localStorage.getItem("q2bus")==null){
+        localStorage.setItem("q2bus",JSON.stringify(q2bus));
+    }
+    else{
+        let q2bus=JSON.parse(localStorage.getItem("q2bus"));
+        q2bus.push(bus);
+        localStorage.setItem("q2bus",JSON.stringify(q2bus));
+    }
+    q2bus=JSON.parse(localStorage.getItem("q2bus"));
+    q2display(q2bus);
+    document.getElementById("q2name").value="";
+    document.getElementById("q2source").value="";
+    document.getElementById("q2destination").value="";
+    document.getElementById("q2number").value="";
+    document.getElementById("q2capacity").value="";
+}
+function q2display(q2bus){
+console.log("display");
+console.log(q2bus);
+let tableBody2=document.getElementById("tablebody2");
+    let index2=1;
+    let str2="";
+ q2bus.forEach(el => {
+    str2+=`<tr>
+    <td>${index2}</td>
+    <td>${el.q2name}</td>
+    <td>${el.q2source}</td>
+    <td>${el.q2destination}</td>
+    <td>${el.q2number}</td>
+    <td>${el.q2capacity}</td>
+</tr>`;
+index2+=1;
+    });   
+tableBody2.innerHTML=str2;
+}
+
+function q2search() {
+    let q2search1=document.getElementById("q2search1").value;
+    let q2search2=document.getElementById("q2search2").value;
+    console.log(q2search1);
+    let q2bus=JSON.parse(localStorage.getItem("q2bus"));
+    let data2=q2bus.filter(function(e){
+        if(q2search1!="" && q2search2==""){
+           console.log("one");
+            return e.q2source.toUpperCase().indexOf(q2search1.toUpperCase())!=-1 ;
+        }
+        else if(q2search1=="" && q2search2!=""){
+            console.log("two");
+            return e.q2destination.toUpperCase().indexOf(q2search2.toUpperCase())!=-1;
+
+        }
+        else{
+            console.log("three");
+           return  e.q2source.toUpperCase().indexOf(q2search1.toUpperCase())!=-1 && e.q2destination.toUpperCase().indexOf(q2search2.toUpperCase())!=-1;
+        }
+    });
+    console.log(data2);
+    q2display(data2);
+}
+</script>
+</body>
+</html>
