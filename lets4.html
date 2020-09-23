@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .top1{
+        height: 40px;
+        background-color: cornsilk;
+        display: flex;
+    }
+    .top1 h2{
+        width: 60%;
+        margin-top: 5px;
+        text-align: center;
+    }
+    .input{
+        margin: 10px 10px;
+    }
+    .middle{
+        height: auto;
+        width: 60%;
+        margin-left: 20%;
+    }
+    .middle2{
+        height: 450px;
+        width: 25%;
+        margin:4%;
+        border: 1px solid black;
+        display: inline-block;
+    }
+    .middle img{
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+    }
+    .middle h2,p{
+        padding: 3px;
+        margin-left: 10px;
+    }
+    h1,h2{
+        text-align: center;
+    }
+    #btn{
+        padding: 3px;
+        margin-left: 50px ;
+        display: block;
+    }
+
+    .show{
+        display: none;
+    }
+    h3{
+        text-align: center;
+        background-color: rgb(209, 175, 101);
+    }
+</style>
+<body>
+   <div class="top1">
+       <h2><i>letus upgrade shopping</i></h2>
+       <div> 
+           price filter :
+       <input type="number" placeholder="minimum price" id="input1" class="input" onkeyup="search()">---
+        <input type="number" placeholder="maximum price" id="input2" class="input" onkeyup="search()">
+        </div>
+        
+    </div>
+    <div class="middle" id="middle1">
+    </div>
+    
+    <p id="countcart"></p>
+    <div class="middle" id="cartitems">
+    </div>
+    <script> 
+    console.log("hello lets4");
+var products=[
+    {
+        image:"letsimg3.jpg",
+        name:"Mens jeans",
+        price:1299,
+        color:"Blue jeans",
+        size:"S",
+    },
+    {
+        image:"letsimg10.jpg",
+        name:"Women casual",
+        price:2199,
+        color:"Pink",
+        size:"M",
+    },
+    {
+        image:"letsimg1.jpg",
+        name:"Mens shirt",
+        price:1500,
+        color:"Black and Red",
+        size:"M",
+    },
+    {
+        image:"letsimg12.jpg",
+        name:"Womens jeans",
+        price:2000,
+        color:"Blue jeans",
+        size:"M",
+    },
+    {
+        image:"letsimg2.jpg",
+        name:"Mens shirt",
+        price:750,
+        color:"Red",
+        size:"S",
+    },
+   
+    {
+        image:"letsimg4.jpg",
+        name:"Mens shirt",
+        price:900,
+        color:"Black and Cream",
+        size:"L",
+    },
+    {
+        image:"letsimg5.jpg",
+        name:"Mens jeans",
+        price:1000,
+        color:"Blue",
+        size:"XL",
+    },
+    {
+        image:"letsimg9.jpg",
+        name:"Womens Top",
+        price:1299,
+        color:"Pink",
+        size:"M",
+    },
+    {
+        image:"letsimg6.jpg",
+        name:"Mens casual",
+        price:1600,
+        color:"White",
+        size:"L",
+    },
+   
+    {
+        image:"letsimg7.jpg",
+        name:"Mens formal",
+        price:1499,
+        color:"Black",
+        size:"S",
+    },
+    {
+        image:"letsimg8.jpg",
+        name:"Womens casual",
+        price:799,
+        color:"Yellow",
+        size:"M",
+    },
+   
+    
+    {
+        image:"letsimg11.jpg",
+        name:"Womens formal",
+        price:1199,
+        color:"Black",
+        size:"L",
+    },
+   
+]
+function display(items){
+    let str="";
+    let index=1;
+    let middle1=document.getElementById("middle1");
+    items.forEach(p => {
+        console.log(p);
+        str+=`<div class="middle2">
+        <img src="${p.image}" alt="">
+        <div>
+        <h2> ${p.name}</h2>
+        <p>price : ${p.price}/-</p>
+        <p>color : ${p.color}</p>
+        <p>Size : ${p.size}</p>
+        <h3><p class="show" id="incart${index}">In cart</p></h3>
+        <p><button id="btn" onclick="cart(${index}); incart${index}.style.display='block';  this.style.display='none'">Add to cart</button></p>
+        </div>
+    </div>`;
+    index+=1;
+    });
+    console.log(str);
+    middle1.innerHTML=str;
+    console.log(middle1);
+}
+display(products);
+function search(){
+var input1=document.getElementById("input1").value;
+var input2=document.getElementById("input2").value;
+let data=products.filter(function(p){
+    if(input1=="" && input2==""){
+        return p;
+    }
+    if(input1!="" && input2==""){
+        return input1<=p.price;
+    }
+    else if(input1=="" && input2!=""){
+        return input2>=p.price;
+    }
+    else{
+        return input1<=p.price && input2>=p.price;
+    }
+});
+display(data);
+}
+var cartproducts=[];
+var count=0;
+function cart(index){
+    count+=1;  
+    var caritems=document.getElementById("caritems");
+    var a=products[index-1];
+    cartproducts.push(a);
+    console.log(cartproducts);
+    let str1="";
+    cartproducts.forEach(p => {
+        str1+=`<div class="middle2">
+        <img src="${p.image}" alt="">
+        <div>
+        <h2> ${p.name}</h2>
+        <p>price : ${p.price}/-</p>
+        <p>color : ${p.color}</p>
+        <p>Size : ${p.size}</p>
+        <p><h3><i>In cart<i></h3></p>
+        </div>
+    </div>`;
+    });
+    document.getElementById("countcart").innerHTML=`<h1>Products in Cart</h1> <h3><i>${count} products in cart<i></h3>`;
+    cartitems.innerHTML=str1;
+}
+</script>
+</body>
+</html>
